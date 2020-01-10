@@ -73,7 +73,9 @@ class Results extends Component {
         <Container>
           <h2>Search Results</h2>
           <List>
-            {this.state.books.map((book, index) => (
+            {this.state.books.map((book, index) => {
+              const { volumeInfo: { imageLinks = {} } = {}} = book;
+              return (
               <ListItem key={book.id}>
                 <div className="date-div">
                   <a
@@ -86,7 +88,7 @@ class Results extends Component {
                     <p>Written By {book.volumeInfo.authors[0]}</p>
                   <p>
                   <img align="left" style={{paddingRight:10}}
-                    src={book.volumeInfo.imageLinks.smallThumbnail} alt="new"
+                    src={imageLinks.smallThumbnail ? imageLinks.smallThumbnail : ''} alt="new"
                   />
                     {book.volumeInfo.description}
                   </p>
@@ -109,7 +111,7 @@ class Results extends Component {
                   </BookBtn>
                 </div>
               </ListItem>
-            ))}
+            )})}
           </List>
         </Container>
       </div>
